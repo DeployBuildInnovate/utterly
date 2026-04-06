@@ -4,7 +4,6 @@ export default function HomePage() {
   return (
     <main style={{ fontFamily: 'Georgia, serif', maxWidth: '900px', margin: '0 auto', padding: '0 2rem' }}>
 
-      {/* Nav */}
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 0', borderBottom: '1px solid #e5e5e5' }}>
         <div style={{ fontSize: '24px', fontWeight: '600', letterSpacing: '-0.5px' }}>
           Utt<em style={{ color: '#0F6E56', fontStyle: 'italic' }}>er</em>ly
@@ -21,7 +20,6 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section style={{ padding: '5rem 0 4rem' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f5f5f0', border: '1px solid #e5e5e5', borderRadius: '20px', padding: '5px 14px', fontSize: '12px', color: '#666', marginBottom: '1.5rem' }}>
           🇬🇧 Native British English speakers · live sessions
@@ -43,33 +41,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
         <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>How it works</p>
         <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>Direct. Personal. British.</h2>
         <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '500px', lineHeight: '1.6' }}>
-          No intermediaries. No generic courses. You find a tutor you like, book a session, and learn directly from a native British English speaker — live, one to one.
+          No intermediaries. No generic courses. You find a tutor you like, book a session, and learn directly from a native British English speaker.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
           {[
-            {
-              n: '01',
-              title: 'Find your tutor',
-              body: 'Browse native British English speakers. Read their profiles, watch their intro videos, and choose someone who fits your goals and personality.',
-            },
-            {
-              n: '02',
-              title: 'Book a session',
-              body: 'Pick a time that works for you. Sessions are live, one to one, directly with your tutor. No recordings, no self-study — a real conversation.',
-            },
-            {
-              n: '03',
-              title: 'Speak British English',
-              body: 'Your tutor guides you through real British English — pronunciation, vocabulary, idiom, register. The way it\'s actually spoken.',
-            },
+            { n: '01', title: 'Find your tutor', body: 'Browse native British English speakers. Read their profiles, watch their intro videos, and choose someone who fits your goals.' },
+            { n: '02', title: 'Book a session', body: 'Pick a time that works for you. Sessions are live, one to one, directly with your tutor. A real conversation.' },
+            { n: '03', title: 'Speak British English', body: 'Your tutor guides you through real British English — pronunciation, vocabulary, idiom, register. The way it\'s actually spoken.' },
           ].map(({ n, title, body }) => (
             <div key={n} style={{ border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem' }}>
-              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem', fontFamily: 'Georgia, serif' }}>{n}</div>
+              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem' }}>{n}</div>
               <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '0.5rem', color: '#1a1a1a' }}>{title}</h3>
               <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', margin: 0 }}>{body}</p>
             </div>
@@ -77,33 +62,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why British English */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
         <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>Why Utterly</p>
         <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>British English. The real thing.</h2>
         <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '520px', lineHeight: '1.6' }}>
-          Most platforms offer English tutors from anywhere in the world. Utterly is different. Every tutor on our platform is a native British English speaker, based in the UK. British spelling, British pronunciation, British idiom — as standard, not as an option.
+          Every tutor on Utterly is a native British English speaker, based in the UK. British spelling, British pronunciation, British idiom — as standard, not as an option.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
           {[
-            {
-              n: '01',
-              title: 'Native British speakers only',
-              body: 'Every tutor grew up speaking British English. Not learned, not adopted — native. The accent, the idiom, the cultural knowledge comes naturally.',
-            },
-            {
-              n: '02',
-              title: 'Trained and vetted',
-              body: 'Every tutor completes our training programme before their first session. We check their English, their teaching approach, and their ability to connect with learners.',
-            },
-            {
-              n: '03',
-              title: 'The culture, not just the language',
-              body: 'British English is inseparable from British culture. Our tutors teach both — the language and the context that makes it make sense.',
-            },
+            { n: '01', title: 'Native British speakers only', body: 'Every tutor grew up speaking British English. The accent, the idiom, the cultural knowledge comes naturally.' },
+            { n: '02', title: 'Trained and vetted', body: 'Every tutor completes our training programme before their first session. We check their English, their approach, and their ability to connect.' },
+            { n: '03', title: 'The culture, not just the language', body: 'British English is inseparable from British culture. Our tutors teach both — the language and the context that makes it make sense.' },
           ].map(({ n, title, body }) => (
             <div key={n} style={{ border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem' }}>
-              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem', fontFamily: 'Georgia, serif' }}>{n}</div>
+              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem' }}>{n}</div>
               <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '0.5rem', color: '#1a1a1a' }}>{title}</h3>
               <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', margin: 0 }}>{body}</p>
             </div>
@@ -111,13 +83,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Three ways */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
         <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>Ways to learn</p>
-        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>Three ways to learn with us</h2>
-        <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '500px', lineHeight: '1.6' }}>
-          Choose what fits your life. Mix and match as you go.
-        </p>
+        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '3rem', color: '#1a1a1a' }}>Three ways to learn with us</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
           {[
             {
@@ -126,12 +94,7 @@ export default function HomePage() {
               color: '#0F6E56',
               bg: '#F0FDF4',
               border: '#BBF7D0',
-              features: [
-                'Find a tutor who fits your level and goals',
-                'Live sessions, one to one',
-                'Lessons built around you',
-                'Book as often as you like',
-              ],
+              features: ['Find a tutor who fits your level', 'Live sessions, one to one', 'Lessons built around you', 'Book as often as you like'],
               cta: 'Find a tutor',
               href: '/tutors',
             },
@@ -141,12 +104,7 @@ export default function HomePage() {
               color: '#B45309',
               bg: '#FFFBEB',
               border: '#FDE68A',
-              features: [
-                'Up to 8 learners per class',
-                'Conversation, writing, pronunciation',
-                'Tutor-led, structured sessions',
-                'Weekly or one-off',
-              ],
+              features: ['Up to 8 learners per class', 'Conversation, writing, pronunciation', 'Tutor-led structured sessions', 'Weekly or one-off'],
               cta: 'Browse classes',
               href: '/lessons',
             },
@@ -156,12 +114,7 @@ export default function HomePage() {
               color: '#7C3AED',
               bg: '#F5F3FF',
               border: '#DDD6FE',
-              features: [
-                'Daily at 5pm — members only',
-                'A new topic every evening',
-                'Facilitated group discussion',
-                'Ten places per session',
-              ],
+              features: ['Daily at 5pm — members only', 'A new topic every evening', 'Facilitated group discussion', 'Ten places per session'],
               cta: 'Join the club',
               href: '/club',
             },
@@ -184,7 +137,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Teatime Club spotlight */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
         <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#7C3AED', marginBottom: '1rem' }}>5pm Teatime Club</p>
         <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>Every day at 5pm. Ten people. One hour.</h2>
@@ -227,7 +179,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section style={{ background: '#0F6E56', margin: '4rem -2rem 0', padding: '3rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '30px', fontWeight: '600', color: 'white', marginBottom: '4px' }}>Ready to speak properly?</h2>
@@ -238,7 +189,6 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* Footer */}
       <footer style={{ padding: '1.5rem 0', borderTop: '1px solid #e5e5e5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#999' }}>
         <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
           Utt<em style={{ color: '#0F6E56', fontStyle: 'italic' }}>er</em>ly
