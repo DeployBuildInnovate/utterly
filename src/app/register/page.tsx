@@ -2,9 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -12,6 +16,9 @@ export default function RegisterPage() {
     level: '',
     goals: [] as string[],
   })
+
+  const router = useRouter()
+  const supabase = createClient()
 
   const goals = [
     'Speak more confidently at work',
@@ -33,6 +40,41 @@ export default function RegisterPage() {
     }))
   }
 
+  async function handleRegister() {
+    setLoading(true)
+    setError('')
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+        options: {
+          data: {
+            full_name: form.name,
+            role: 'learner',
+          }
+        }
+      })
+      if (signUpError) throw signUpError
+      if (data.user) {
+        await supabase.from('profiles').insert({
+          id: data.user.id,
+          full_name: form.name,
+          role: 'learner',
+          level: form.level,
+        })
+      }
+      setStep(2)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleFinish() {
+    router.push('/tutors')
+  }
+
   return (
     <main style={{ fontFamily: 'Georgia, serif', minHeight: '100vh', background: '#f9f9f7', display: 'flex', flexDirection: 'column' }}>
 
@@ -49,7 +91,6 @@ export default function RegisterPage() {
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 2rem' }}>
         <div style={{ width: '100%', maxWidth: '460px' }}>
 
-          {/* Progress bar */}
           <div style={{ display: 'flex', gap: '8px', marginBottom: '2rem', justifyContent: 'center' }}>
             {[1, 2, 3].map(s => (
               <div key={s} style={{ width: '32px', height: '4px', borderRadius: '2px', background: s <= step ? '#0F6E56' : '#e5e5e5' }} />
@@ -58,15 +99,20 @@ export default function RegisterPage() {
 
           <div style={{ background: 'white', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '2.5rem' }}>
 
-            {/* Step 1 — Account details */}
             {step === 1 && (
               <div>
                 <h1 style={{ fontSize: '26px', fontWeight: '600', letterSpacing: '-0.5px', marginBottom: '0.5rem', color: '#1a1a1a' }}>
                   Create your account
                 </h1>
-                <p style={{ fontSize: '15px', color: '#666', marginBottom: '2rem', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
+                <p style={{ fontSize: '15px', color: '#666', marginBottom: '2rem', fontFamily: 'sans-serif' }}>
                   Start learning British English with a real tutor.
                 </p>
+
+                {error && (
+                  <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '13px', color: '#DC2626', margin: 0, fontFamily: 'sans-serif' }}>{error}</p>
+                  </div>
+                )}
 
                 <div style={{ marginBottom: '1rem' }}>
                   <label style={{ fontSize: '13px', fontWeight: '500', color: '#444', display: 'block', marginBottom: '6px', fontFamily: 'sans-serif' }}>Full name</label>
@@ -102,22 +148,21 @@ export default function RegisterPage() {
                 </div>
 
                 <button
-                  onClick={() => setStep(2)}
-                  disabled={!form.name || !form.email || !form.password}
-                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', opacity: (!form.name || !form.email || !form.password) ? 0.5 : 1 }}
+                  onClick={handleRegister}
+                  disabled={!form.name || !form.email || !form.password || loading}
+                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', opacity: (!form.name || !form.email || !form.password || loading) ? 0.6 : 1 }}
                 >
-                  Continue
+                  {loading ? 'Creating account...' : 'Continue'}
                 </button>
               </div>
             )}
 
-            {/* Step 2 — English level */}
             {step === 2 && (
               <div>
                 <h2 style={{ fontSize: '24px', fontWeight: '600', letterSpacing: '-0.5px', marginBottom: '0.5rem', color: '#1a1a1a' }}>
                   What is your English level?
                 </h2>
-                <p style={{ fontSize: '14px', color: '#666', marginBottom: '1.5rem', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
+                <p style={{ fontSize: '14px', color: '#666', marginBottom: '1.5rem', fontFamily: 'sans-serif' }}>
                   Choose the closest level. We will confirm this with a short placement test.
                 </p>
 
@@ -152,29 +197,23 @@ export default function RegisterPage() {
                   ))}
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <button onClick={() => setStep(1)} style={{ flex: 1, border: '1px solid #e5e5e5', background: 'white', borderRadius: '10px', padding: '12px', fontSize: '14px', cursor: 'pointer', fontFamily: 'sans-serif', color: '#555' }}>
-                    Back
-                  </button>
-                  <button
-                    onClick={() => setStep(3)}
-                    disabled={!form.level}
-                    style={{ flex: 2, background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '12px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', opacity: !form.level ? 0.5 : 1 }}
-                  >
-                    Continue
-                  </button>
-                </div>
+                <button
+                  onClick={() => setStep(3)}
+                  disabled={!form.level}
+                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', opacity: !form.level ? 0.5 : 1 }}
+                >
+                  Continue
+                </button>
               </div>
             )}
 
-            {/* Step 3 — Goals */}
             {step === 3 && (
               <div>
                 <h2 style={{ fontSize: '24px', fontWeight: '600', letterSpacing: '-0.5px', marginBottom: '0.5rem', color: '#1a1a1a' }}>
                   What are your goals?
                 </h2>
-                <p style={{ fontSize: '14px', color: '#666', marginBottom: '1.5rem', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
-                  Select everything that applies. We will use this to match you with the right tutor.
+                <p style={{ fontSize: '14px', color: '#666', marginBottom: '1.5rem', fontFamily: 'sans-serif' }}>
+                  Select everything that applies.
                 </p>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginBottom: '2rem' }}>
@@ -201,23 +240,18 @@ export default function RegisterPage() {
                   ))}
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <button onClick={() => setStep(2)} style={{ flex: 1, border: '1px solid #e5e5e5', background: 'white', borderRadius: '10px', padding: '12px', fontSize: '14px', cursor: 'pointer', fontFamily: 'sans-serif', color: '#555' }}>
-                    Back
-                  </button>
-                  <Link
-                    href="/tutors"
-                    style={{ flex: 2, background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '12px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', textDecoration: 'none', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >
-                    Find my tutor →
-                  </Link>
-                </div>
+                <button
+                  onClick={handleFinish}
+                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif' }}
+                >
+                  Find my tutor →
+                </button>
               </div>
             )}
 
           </div>
 
-          <p style={{ fontSize: '12px', color: '#999', textAlign: 'center', marginTop: '1.5rem', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '12px', color: '#999', textAlign: 'center', marginTop: '1.5rem', fontFamily: 'sans-serif' }}>
             By continuing you agree to our{' '}
             <Link href="/terms" style={{ color: '#666', textDecoration: 'none' }}>Terms</Link>
             {' '}and{' '}

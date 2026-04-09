@@ -2,9 +2,33 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const router = useRouter()
+  const supabase = createClient()
+
+  async function handleLogin() {
+    setLoading(true)
+    setError('')
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      })
+      if (signInError) throw signInError
+      router.push('/dashboard/tutor')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Invalid email or password')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <main style={{ fontFamily: 'Georgia, serif', minHeight: '100vh', background: '#f9f9f7', display: 'flex', flexDirection: 'column' }}>
@@ -30,6 +54,12 @@ export default function LoginPage() {
               Sign in to your Utterly account
             </p>
 
+            {error && (
+              <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem' }}>
+                <p style={{ fontSize: '13px', color: '#DC2626', margin: 0, fontFamily: 'sans-serif' }}>{error}</p>
+              </div>
+            )}
+
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ fontSize: '13px', fontWeight: '500', color: '#444', display: 'block', marginBottom: '6px', fontFamily: 'sans-serif' }}>
                 Email address
@@ -52,6 +82,7 @@ export default function LoginPage() {
                 value={form.password}
                 onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
                 placeholder="Your password"
+                onKeyDown={e => e.key === 'Enter' && handleLogin()}
                 style={{ width: '100%', border: '1px solid #e5e5e5', borderRadius: '8px', padding: '11px 14px', fontSize: '15px', fontFamily: 'sans-serif', boxSizing: 'border-box', outline: 'none' }}
               />
             </div>
@@ -62,12 +93,13 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            <Link
-              href="/tutors"
-              style={{ display: 'block', textAlign: 'center', background: '#0F6E56', color: 'white', padding: '14px', borderRadius: '10px', fontSize: '15px', fontWeight: '600', textDecoration: 'none', fontFamily: 'sans-serif', marginBottom: '1rem' }}
+            <button
+              onClick={handleLogin}
+              disabled={!form.email || !form.password || loading}
+              style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', marginBottom: '1rem', opacity: (!form.email || !form.password || loading) ? 0.6 : 1 }}
             >
-              Sign in
-            </Link>
+              {loading ? 'Signing in...' : 'Sign in'}
+            </button>
 
             <div style={{ position: 'relative', textAlign: 'center', marginBottom: '1rem' }}>
               <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '1px', background: '#e5e5e5' }} />
@@ -80,7 +112,7 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <p style={{ fontSize: '12px', color: '#999', textAlign: 'center', marginTop: '1.5rem', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '12px', color: '#999', textAlign: 'center', marginTop: '1.5rem', fontFamily: 'sans-serif' }}>
             By signing in you agree to our{' '}
             <Link href="/terms" style={{ color: '#666', textDecoration: 'none' }}>Terms</Link>
             {' '}and{' '}
