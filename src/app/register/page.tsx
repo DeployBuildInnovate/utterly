@@ -73,10 +73,26 @@ export default function RegisterPage() {
   }
 
   async function handleFinish() {
-    router.push('/tutors')
+    setLoading(true)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        await supabase.from('learners').upsert({
+          profile_id: user.id,
+          current_level: form.level,
+          learning_goals: form.goals,
+        })
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+      router.push('/tutors')
+    }
   }
 
   return (
+    
     <main style={{ fontFamily: 'Georgia, serif', minHeight: '100vh', background: '#f9f9f7', display: 'flex', flexDirection: 'column' }}>
 
       <nav style={{ background: 'white', borderBottom: '1px solid #e5e5e5', padding: '1rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

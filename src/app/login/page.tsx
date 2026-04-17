@@ -17,12 +17,23 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email: form.email,
         password: form.password,
       })
       if (signInError) throw signInError
-      router.push('/dashboard/tutor')
+      
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', data.user.id)
+        .single()
+      
+      if (profile?.role === 'tutor') {
+        router.push('/dashboard/tutor')
+      } else {
+        router.push('/dashboard/learner')
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Invalid email or password')
     } finally {

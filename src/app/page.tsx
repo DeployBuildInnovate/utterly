@@ -1,15 +1,90 @@
 import Link from 'next/link'
 
-export default function HomePage() {
+const TUTORS = [
+  {
+    id: '1',
+    name: 'Sarah R.',
+    city: 'Leeds',
+    bio: 'Warm, patient, and rigorous. I specialise in pronunciation and everyday conversation for adult learners. I have been teaching British English for 8 years and love helping learners find their confidence.',
+    certifications: ['CELTA'],
+    experience: 8,
+    rating: 4.9,
+    reviews: 134,
+    specialisms: ['Pronunciation', 'Conversation', 'Business English'],
+    available: true,
+  },
+  {
+    id: '2',
+    name: 'James O.',
+    city: 'Bristol',
+    bio: 'Former BBC journalist turned English teacher. I focus on clarity, register, and professional writing. If you need to sound polished and confident in English at work, I can help.',
+    certifications: ['DELTA', 'CELTA'],
+    experience: 14,
+    rating: 5.0,
+    reviews: 89,
+    specialisms: ['Business English', 'Writing', 'Professional register'],
+    available: true,
+  },
+  {
+    id: '3',
+    name: 'Priya M.',
+    city: 'Manchester',
+    bio: 'I love helping learners find their confidence in English. I specialise in grammar foundations and building fluency from the ground up. Patient, encouraging, and always prepared.',
+    certifications: ['TEFL'],
+    experience: 4,
+    rating: 4.7,
+    reviews: 41,
+    specialisms: ['Grammar', 'Beginners', 'Confidence building'],
+    available: false,
+  },
+  {
+    id: '4',
+    name: 'Tom W.',
+    city: 'Edinburgh',
+    bio: 'Interactive, energetic sessions focused on spoken fluency. I use real-world scenarios and love helping learners tackle British idiom and informal language. Sessions are fun and fast-paced.',
+    certifications: ['CELTA'],
+    experience: 6,
+    rating: 4.8,
+    reviews: 72,
+    specialisms: ['Speaking', 'Fluency', 'Idioms'],
+    available: true,
+  },
+  {
+    id: '5',
+    name: 'Anya B.',
+    city: 'London',
+    bio: 'Senior tutor with 18 years experience. I specialise in advanced learners who want to reach near-native fluency. Academic writing, C1 and C2 preparation, and professional British English.',
+    certifications: ['DELTA', 'QTS'],
+    experience: 18,
+    rating: 5.0,
+    reviews: 203,
+    specialisms: ['Advanced learners', 'Academic writing', 'C1 and C2'],
+    available: true,
+  },
+  {
+    id: '6',
+    name: 'Marcus C.',
+    city: 'Birmingham',
+    bio: 'Relaxed, encouraging, and great with nervous learners. I host the 5pm Teatime Club and specialise in group teaching and conversation practice. Come as you are — we will work from there.',
+    certifications: ['TEFL', 'CELTA'],
+    experience: 5,
+    rating: 4.9,
+    reviews: 58,
+    specialisms: ['Conversation', 'Beginners', 'Group teaching'],
+    available: true,
+  },
+]
+
+export default function TutorsPage() {
   return (
-    <main style={{ fontFamily: 'Georgia, serif', maxWidth: '900px', margin: '0 auto', padding: '0 2rem' }}>
+    <main style={{ fontFamily: 'Georgia, serif', maxWidth: '1100px', margin: '0 auto', padding: '0 2rem' }}>
 
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 0', borderBottom: '1px solid #e5e5e5' }}>
-        <div style={{ fontSize: '24px', fontWeight: '600', letterSpacing: '-0.5px' }}>
+        <Link href="/" style={{ textDecoration: 'none', fontSize: '24px', fontWeight: '600', letterSpacing: '-0.5px', color: '#1a1a1a' }}>
           Utt<em style={{ color: '#0F6E56', fontStyle: 'italic' }}>er</em>ly
-        </div>
-        <div style={{ display: 'flex', gap: '2rem', fontSize: '14px', color: '#666' }}>
-          <Link href="/tutors" style={{ textDecoration: 'none', color: '#666' }}>Find a tutor</Link>
+        </Link>
+        <div style={{ display: 'flex', gap: '2rem', fontSize: '14px' }}>
+          <Link href="/tutors" style={{ textDecoration: 'none', color: '#0F6E56', fontWeight: '600' }}>Find a tutor</Link>
           <Link href="/club" style={{ textDecoration: 'none', color: '#666' }}>Teatime Club</Link>
           <Link href="/packs" style={{ textDecoration: 'none', color: '#666' }}>Learning packs</Link>
           <Link href="/tutors/apply" style={{ textDecoration: 'none', color: '#666' }}>Teach with us</Link>
@@ -20,179 +95,133 @@ export default function HomePage() {
         </div>
       </nav>
 
-      <section style={{ padding: '5rem 0 4rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#f5f5f0', border: '1px solid #e5e5e5', borderRadius: '20px', padding: '5px 14px', fontSize: '12px', color: '#666', marginBottom: '1.5rem' }}>
-          🇬🇧 Native British English speakers · live sessions
-        </div>
-        <h1 style={{ fontSize: '56px', fontWeight: '600', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '1.5rem', color: '#1a1a1a' }}>
-          Learn British English<br />
-          <em style={{ color: '#0F6E56', fontStyle: 'italic' }}>from the people who speak it.</em>
+      <section style={{ padding: '3rem 0 2rem' }}>
+        <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '0.75rem' }}>
+          Native British English speakers
+        </p>
+        <h1 style={{ fontSize: '42px', fontWeight: '600', letterSpacing: '-1.5px', marginBottom: '0.75rem', color: '#1a1a1a' }}>
+          Find your tutor
         </h1>
-        <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.7', marginBottom: '2.5rem', maxWidth: '520px' }}>
-          Utterly connects you directly with native British English speakers who tutor and coach. Real people, live sessions, genuine British English — not an app, not an algorithm.
+        <p style={{ fontSize: '16px', color: '#666', lineHeight: '1.6', maxWidth: '520px', margin: 0 }}>
+          Browse native British English speakers trained by Utterly. Read their profiles, watch their videos, and book directly.
         </p>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <Link href="/tutors" style={{ textDecoration: 'none', background: '#0F6E56', color: 'white', padding: '14px 28px', borderRadius: '8px', fontSize: '15px', fontWeight: '500' }}>
-            Find your tutor
-          </Link>
-          <Link href="/club" style={{ textDecoration: 'none', border: '1px solid #ccc', color: '#1a1a1a', padding: '14px 28px', borderRadius: '8px', fontSize: '15px' }}>
-            Join tonight&apos;s club
-          </Link>
-        </div>
       </section>
 
-      <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
-        <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>How it works</p>
-        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>Direct. Personal. British.</h2>
-        <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '500px', lineHeight: '1.6' }}>
-          No intermediaries. No generic courses. You find a tutor you like, book a session, and learn directly from a native British English speaker.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-          {[
-            { n: '01', title: 'Find your tutor', body: 'Browse native British English speakers. Read their profiles, watch their intro videos, and choose someone who fits your goals.' },
-            { n: '02', title: 'Book a session', body: 'Pick a time that works for you. Sessions are live, one to one, directly with your tutor. A real conversation.' },
-            { n: '03', title: 'Speak British English', body: 'Your tutor guides you through real British English — pronunciation, vocabulary, idiom, register. The way it\'s actually spoken.' },
-          ].map(({ n, title, body }) => (
-            <div key={n} style={{ border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem' }}>
-              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem' }}>{n}</div>
-              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '0.5rem', color: '#1a1a1a' }}>{title}</h3>
-              <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', margin: 0 }}>{body}</p>
+      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: '3rem', paddingBottom: '4rem' }}>
+
+        <aside>
+          <div style={{ position: 'sticky', top: '2rem', background: '#f9f9f7', border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem' }}>
+            <h2 style={{ fontSize: '13px', fontWeight: '600', marginBottom: '1.5rem', color: '#1a1a1a', textTransform: 'uppercase', letterSpacing: '1px' }}>Filter</h2>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ fontSize: '11px', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '1px', color: '#999', display: 'block', marginBottom: '0.75rem' }}>
+                Your level
+              </label>
+              <select style={{ width: '100%', border: '1px solid #e5e5e5', borderRadius: '8px', padding: '8px 10px', fontSize: '13px', background: 'white', color: '#1a1a1a' }}>
+                <option>Any level</option>
+                <option>A1 — Beginner</option>
+                <option>A2 — Elementary</option>
+                <option>B1 — Intermediate</option>
+                <option>B2 — Upper intermediate</option>
+                <option>C1 — Advanced</option>
+                <option>C2 — Proficient</option>
+              </select>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
-        <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>Why Utterly</p>
-        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>British English. The real thing.</h2>
-        <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '520px', lineHeight: '1.6' }}>
-          Every tutor on Utterly is a native British English speaker, based in the UK. British spelling, British pronunciation, British idiom — as standard, not as an option.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-          {[
-            { n: '01', title: 'Native British speakers only', body: 'Every tutor grew up speaking British English. The accent, the idiom, the cultural knowledge comes naturally.' },
-            { n: '02', title: 'Trained and vetted', body: 'Every tutor completes our training programme before their first session. We check their English, their approach, and their ability to connect.' },
-            { n: '03', title: 'The culture, not just the language', body: 'British English is inseparable from British culture. Our tutors teach both — the language and the context that makes it make sense.' },
-          ].map(({ n, title, body }) => (
-            <div key={n} style={{ border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem' }}>
-              <div style={{ fontSize: '32px', fontWeight: '600', color: '#0F6E56', marginBottom: '1rem' }}>{n}</div>
-              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '0.5rem', color: '#1a1a1a' }}>{title}</h3>
-              <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', margin: 0 }}>{body}</p>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ fontSize: '11px', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '1px', color: '#999', display: 'block', marginBottom: '0.75rem' }}>
+                Specialism
+              </label>
+              {['Conversation', 'Business English', 'Pronunciation', 'Grammar', 'Writing', 'Exam prep'].map(s => (
+                <label key={s} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#444', marginBottom: '8px', cursor: 'pointer' }}>
+                  <input type="checkbox" style={{ accentColor: '#0F6E56' }} />
+                  {s}
+                </label>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
-        <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#0F6E56', marginBottom: '1rem' }}>Ways to learn</p>
-        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '3rem', color: '#1a1a1a' }}>Three ways to learn with us</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-          {[
-            {
-              title: '1-to-1 tuition',
-              desc: 'Your tutor. Your pace. Your goals.',
-              color: '#0F6E56',
-              bg: '#F0FDF4',
-              border: '#BBF7D0',
-              features: ['Find a tutor who fits your level', 'Live sessions, one to one', 'Lessons built around you', 'Book as often as you like'],
-              cta: 'Find a tutor',
-              href: '/tutors',
-            },
-            {
-              title: 'Group classes',
-              desc: 'Small groups, structured topics.',
-              color: '#B45309',
-              bg: '#FFFBEB',
-              border: '#FDE68A',
-              features: ['Up to 8 learners per class', 'Conversation, writing, pronunciation', 'Tutor-led structured sessions', 'Weekly or one-off'],
-              cta: 'Browse classes',
-              href: '/lessons',
-            },
-            {
-              title: '5pm Teatime Club',
-              desc: 'Every day at 5pm. Ten people. One hour.',
-              color: '#7C3AED',
-              bg: '#F5F3FF',
-              border: '#DDD6FE',
-              features: ['Daily at 5pm — members only', 'A new topic every evening', 'Facilitated group discussion', 'Ten places per session'],
-              cta: 'Join the club',
-              href: '/club',
-            },
-          ].map(({ title, desc, color, bg, border, features, cta, href }) => (
-            <div key={title} style={{ background: bg, border: `1px solid ${border}`, borderRadius: '16px', padding: '1.75rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '20px', fontWeight: '600', color, marginBottom: '0.25rem' }}>{title}</h3>
-              <p style={{ fontSize: '13px', color, marginBottom: '1.25rem', opacity: 0.8 }}>{desc}</p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem', fontSize: '13px', flex: 1 }}>
-                {features.map(f => (
-                  <li key={f} style={{ display: 'flex', gap: '8px', padding: '4px 0', color }}>
-                    <span>·</span>{f}
-                  </li>
-                ))}
-              </ul>
-              <Link href={href} style={{ display: 'block', textAlign: 'center', background: color, color: 'white', padding: '10px', borderRadius: '8px', textDecoration: 'none', fontSize: '13px', fontWeight: '500' }}>
-                {cta}
-              </Link>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ fontSize: '11px', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '1px', color: '#999', display: 'block', marginBottom: '0.75rem' }}>
+                Availability
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#444', cursor: 'pointer' }}>
+                <input type="checkbox" style={{ accentColor: '#0F6E56' }} />
+                Available now
+              </label>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section style={{ padding: '4rem 0', borderTop: '1px solid #e5e5e5' }}>
-        <p style={{ fontSize: '11px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase', color: '#7C3AED', marginBottom: '1rem' }}>5pm Teatime Club</p>
-        <h2 style={{ fontSize: '38px', fontWeight: '600', letterSpacing: '-1px', marginBottom: '1rem', color: '#1a1a1a' }}>Every day at 5pm. Ten people. One hour.</h2>
-        <p style={{ color: '#666', marginBottom: '3rem', maxWidth: '500px', lineHeight: '1.6' }}>
-          Join other learners for a facilitated British English conversation. A new topic every evening. Members only. Ten places per session.
-        </p>
-        <div style={{ background: '#F5F3FF', border: '1px solid #DDD6FE', borderRadius: '16px', padding: '2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-          <div>
-            <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '22px', fontWeight: '600', color: '#4C1D95', marginBottom: '1.5rem' }}>How a session works</h3>
-            {[
-              { time: '5:00pm', text: 'The room opens. Everyone is welcomed and the topic is introduced.' },
-              { time: '5:10pm', text: 'Discussion materials and key vocabulary are shared with the group.' },
-              { time: '5:20pm', text: 'The group takes over — members lead the conversation.' },
-              { time: '5:20–6pm', text: 'One hour of real British English conversation practice.' },
-            ].map(({ time, text }) => (
-              <div key={time} style={{ display: 'flex', gap: '12px', paddingBottom: '12px', marginBottom: '12px', borderBottom: '1px solid #DDD6FE' }}>
-                <span style={{ fontSize: '12px', fontWeight: '500', color: '#7C3AED', minWidth: '52px', paddingTop: '1px' }}>{time}</span>
-                <span style={{ fontSize: '13px', color: '#4C1D95', lineHeight: '1.4' }}>{text}</span>
+            <button style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontSize: '13px', fontWeight: '500', cursor: 'pointer' }}>
+              Apply filters
+            </button>
+          </div>
+        </aside>
+
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>{TUTORS.length} tutors available</p>
+            <select style={{ border: '1px solid #e5e5e5', borderRadius: '8px', padding: '6px 12px', fontSize: '13px', background: 'white', color: '#1a1a1a' }}>
+              <option>Top rated</option>
+              <option>Most reviews</option>
+              <option>Most experienced</option>
+            </select>
+          </div>
+
+          <div style={{ display: 'grid', gap: '1rem' }}>
+            {TUTORS.map(tutor => (
+              <div key={tutor.id} style={{ border: '1px solid #e5e5e5', borderRadius: '12px', padding: '1.5rem', background: 'white' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: '#E1F5EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '600', color: '#0F6E56', flexShrink: 0 }}>
+                    {tutor.name.split(' ').map((n: string) => n[0]).join('')}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2px' }}>
+                      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#1a1a1a', margin: 0 }}>{tutor.name}</h3>
+                      {tutor.available && (
+                        <span style={{ fontSize: '11px', background: '#E1F5EE', color: '#0F6E56', padding: '2px 8px', borderRadius: '20px', fontWeight: '500' }}>
+                          Available
+                        </span>
+                      )}
+                    </div>
+                    <p style={{ fontSize: '13px', color: '#999', margin: 0 }}>{tutor.city} · {tutor.experience} years · {tutor.certifications.join(', ')}</p>
+                  </div>
+                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <div style={{ fontSize: '14px', fontWeight: '500', color: '#1a1a1a' }}>★ {tutor.rating}</div>
+                    <p style={{ fontSize: '12px', color: '#999', margin: 0 }}>{tutor.reviews} reviews</p>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.6', marginBottom: '1rem' }}>{tutor.bio}</p>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    {tutor.specialisms.map((s: string) => (
+                      <span key={s} style={{ fontSize: '12px', border: '1px solid #e5e5e5', padding: '3px 10px', borderRadius: '20px', color: '#777' }}>
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexShrink: 0 }}>
+                    <button style={{ background: 'none', border: '1px solid #e5e5e5', borderRadius: '8px', padding: '8px 12px', fontSize: '16px', cursor: 'pointer', lineHeight: 1 }}>
+                      🤍
+                    </button>
+                    <Link href={`/tutors/${tutor.id}`} style={{ textDecoration: 'none', border: '1px solid #e5e5e5', color: '#555', padding: '8px 16px', borderRadius: '8px', fontSize: '13px' }}>
+                      View profile
+                    </Link>
+                    <Link href={`/tutors/${tutor.id}`} style={{ textDecoration: 'none', background: '#0F6E56', color: 'white', padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '500' }}>
+                      Book a trial
+                    </Link>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-          <div style={{ background: 'white', border: '1px solid #DDD6FE', borderRadius: '12px', padding: '1.5rem' }}>
-            <p style={{ fontSize: '11px', fontWeight: '500', color: '#7C3AED', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem' }}>Tonight · 5:00pm</p>
-            <h4 style={{ fontFamily: 'Georgia, serif', fontSize: '20px', fontWeight: '600', color: '#4C1D95', marginBottom: '0.5rem' }}>Making small talk at work</h4>
-            <p style={{ fontSize: '13px', color: '#7C3AED', lineHeight: '1.5', marginBottom: '1.5rem' }}>
-              The unwritten rules of British workplace conversation — what to say, what to avoid, and how to sound natural.
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                {Array.from({ length: 10 }, (_, i) => (
-                  <div key={i} style={{ width: '14px', height: '14px', borderRadius: '50%', background: i < 6 ? '#7C3AED' : '#EDE9FE', border: i < 6 ? 'none' : '1px solid #DDD6FE' }} />
-                ))}
-              </div>
-              <span style={{ fontSize: '12px', color: '#7C3AED', fontWeight: '500' }}>4 places left</span>
-            </div>
-            <Link href="/club" style={{ display: 'block', textAlign: 'center', background: '#7C3AED', color: 'white', padding: '10px', borderRadius: '8px', textDecoration: 'none', fontSize: '13px', fontWeight: '500' }}>
-              Reserve my place
-            </Link>
-          </div>
         </div>
-      </section>
-
-      <section style={{ background: '#0F6E56', margin: '4rem -2rem 0', padding: '3rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div>
-          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '30px', fontWeight: '600', color: 'white', marginBottom: '4px' }}>Ready to speak properly?</h2>
-          <p style={{ color: '#9FE1CB', fontSize: '14px', margin: 0 }}>Find a tutor and book your first session today.</p>
-        </div>
-        <Link href="/register" style={{ textDecoration: 'none', background: 'white', color: '#0F6E56', padding: '14px 28px', borderRadius: '8px', fontWeight: '500', fontSize: '15px' }}>
-          Get started
-        </Link>
-      </section>
+      </div>
 
       <footer style={{ padding: '1.5rem 0', borderTop: '1px solid #e5e5e5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#999' }}>
-        <div style={{ fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
+        <Link href="/" style={{ textDecoration: 'none', fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: '600', color: '#1a1a1a' }}>
           Utt<em style={{ color: '#0F6E56', fontStyle: 'italic' }}>er</em>ly
-        </div>
+        </Link>
         <p style={{ margin: 0 }}>© 2026 Utterly · British English tutoring</p>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
           {['About', 'Privacy', 'Terms', 'Contact'].map(l => (
