@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
+
 export default function RegisterPage() {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -56,14 +57,7 @@ export default function RegisterPage() {
         }
       })
       if (signUpError) throw signUpError
-      if (data.user) {
-        await supabase.from('profiles').insert({
-          id: data.user.id,
-          full_name: form.name,
-          role: 'learner',
-          level: form.level,
-        })
-      }
+      if (!data.user) throw new Error('No user returned')
       setStep(2)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
@@ -92,7 +86,6 @@ export default function RegisterPage() {
   }
 
   return (
-    
     <main style={{ fontFamily: 'Georgia, serif', minHeight: '100vh', background: '#f9f9f7', display: 'flex', flexDirection: 'column' }}>
 
       <nav style={{ background: 'white', borderBottom: '1px solid #e5e5e5', padding: '1rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -259,9 +252,10 @@ export default function RegisterPage() {
 
                 <button
                   onClick={handleFinish}
-                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif' }}
+                  disabled={loading}
+                  style={{ width: '100%', background: '#0F6E56', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', fontFamily: 'sans-serif', opacity: loading ? 0.6 : 1 }}
                 >
-                  Find my tutor →
+                  {loading ? 'Setting up your account...' : 'Find my tutor →'}
                 </button>
               </div>
             )}
